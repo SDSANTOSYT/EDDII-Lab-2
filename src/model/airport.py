@@ -1,3 +1,5 @@
+import math
+
 class Airport:
     
     def __init__(self, code, name, city, country, latitude, longitude) -> None:
@@ -8,3 +10,14 @@ class Airport:
         self.latitude = latitude
         self.longitude = longitude
     
+    def haversine(self, airport) -> float:
+        lat1 = float(self.latitude)
+        lat2 = float(airport.latitude)
+        long1 = float(self.longitude)
+        long2 = float(airport.longitude)
+        radius = 6371
+        dlat = math.radians(lat2 - lat1)
+        dlong = math.radians(long2 - long1)
+        a = (math.sin(dlat/2) * math.sin(dlat/2)) + math.cos(math.radians(lat1)) * math.cos(math.radians(lat2)) * (math.sin(dlong/2) * math.sin(dlong/2))
+        c = 2 * math.asin(math.sqrt(a))
+        return abs(radius * c)
