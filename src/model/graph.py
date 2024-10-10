@@ -77,12 +77,10 @@ class Graph:
             aux_adj[str(edge[1])].append(str(edge[0]))
             aux_adj[str(edge[0])].append(str(edge[1]))
             if not (self.has_cycles(aux_adj)):
-                print('no cycle===========================================================================')
                 if  edge[0] not in list(adjacency_list_tree.keys()):
                     adjacency_list_tree[edge[0]] = []
                 if  edge[1] not in list(adjacency_list_tree.keys()):
                     adjacency_list_tree[edge[1]] = []
-                print(edge)
                 adjacency_list_tree = aux_adj.copy()
             else:
                 aux_adj[str(edge[1])].remove(str(edge[0]))

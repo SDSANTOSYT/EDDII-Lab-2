@@ -26,7 +26,7 @@ def airports_adjacency_list() -> dict:
         return airport_connections
     
 aeropuertos = airport_node_list()
-print(len(aeropuertos.keys()))
+#print(len(aeropuertos.keys()))
 #print(aeropuertos['NRL'])
 conecciones = airports_adjacency_list()
 #print(conecciones['NRL'])
@@ -34,5 +34,6 @@ conecciones = airports_adjacency_list()
 grafo = Graph(conecciones,aeropuertos)
 print(grafo.n)
 print(grafo.m)
-arbol = grafo.kruskal()[1]
-print(arbol.m)
+arbol = grafo.kruskal()
+print(arbol[0])
+print(arbol[1].m)
