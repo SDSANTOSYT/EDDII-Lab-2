@@ -20,4 +20,8 @@ class Airport:
         dlong = math.radians(long2 - long1)
         a = (math.sin(dlat/2) * math.sin(dlat/2)) + math.cos(math.radians(lat1)) * math.cos(math.radians(lat2)) * (math.sin(dlong/2) * math.sin(dlong/2))
         c = 2 * math.asin(math.sqrt(a))
-        return abs(radius * c)
+        return round(abs(radius * c),2)
+    
+    def __repr__(self) -> str:
+        string = f'codigo: {self.code}, nombre: {self.name}, ciudad: {self.city}, pais: {self.country}, latitud: {self.latitude}, longitud: {self.longitude}'
+        return string
