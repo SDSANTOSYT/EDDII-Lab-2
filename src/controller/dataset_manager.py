@@ -25,15 +25,19 @@ def airports_adjacency_list() -> dict:
         airport_connections = {airport: list(set([connection[6] for connection in data if connection[0] == airport and connection[6] != connection[0]] + [connection[0] for connection in data if connection[6] == airport and connection[6] != connection[0]])) for airport in airport_node_list().keys()}
         return airport_connections
     
+from time import time
 aeropuertos = airport_node_list()
-#print(len(aeropuertos.keys()))
-#print(aeropuertos['NRL'])
-conecciones = airports_adjacency_list()
-#print(conecciones['NRL'])
 
+conecciones = airports_adjacency_list()
+
+
+
+time1 = time()
 grafo = Graph(conecciones,aeropuertos)
-print(grafo.n)
-print(grafo.m)
+print(f"vertices del grafo original: {grafo.n}")
+print(f"aristasa del grafo original: {grafo.m}")
 arbol = grafo.kruskal()
-print(arbol[0])
-print(arbol[1].m)
+print(f"Componentes del arbol de expansión minima \n{arbol[0]}")
+print(f"vertices del arbol de expansión minima: {arbol[1].n}")
+print(f"aristas del arbol de expansión minima: {arbol[1].m}")
+print(f"tiempo de ejecucion: {time()-time1}")
