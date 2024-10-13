@@ -32,13 +32,13 @@ class Graph:
         self.__DFS_visit(u,visited)
 
     # Recorrido del grafo recursivo que recibe un nodo y un diccionario de nodos visitados==========================================
-    def __DFS_visit(self, u:str, visited: dict[str,bool], print = True) -> dict[str,bool]:
+    def __DFS_visit(self, u:str, visited: dict[str,bool], can_print = True) -> dict[str,bool]:
         visited[u] = True
-        if print:
+        if can_print:
             print(u, end= ' ')
         for v in self.L[u]:
             if not visited[v]:
-                visited = self.__DFS_visit(v,visited,print)
+                visited = self.__DFS_visit(v,visited,can_print)
         return visited
 
     # Función para saber si el grafo es conexo======================================================================================
