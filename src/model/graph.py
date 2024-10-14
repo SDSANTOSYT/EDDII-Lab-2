@@ -35,7 +35,7 @@ class Graph:
     def __DFS_visit(self, u:str, visited: dict[str,bool], can_print = True) -> dict[str,bool]:
         visited[u] = True
         if can_print:
-            print(u, end= ' ')
+            print(u, end= ' --> ')
         for v in self.L[u]:
             if not visited[v]:
                 visited = self.__DFS_visit(v,visited,can_print)
@@ -53,12 +53,12 @@ class Graph:
         components = {}
         visited = self.__DFS_visit(list(self.L.keys())[0], visited, False)
         components[list(self.L.keys())[0]] = len([airport for airport in visited.keys() if visited[airport]])
-        previous_visited = len([airport for airport in visited.keys() if visited[airport]])
+        previous_visited = components[list(self.L.keys())[0]]
         while not all(visited.values()):
             not_visited = [airport for airport in visited.keys() if not visited[airport]]
             visited = self.__DFS_visit(not_visited[0], visited, False)
             components[not_visited[0]] = len([airport for airport in visited.keys() if visited[airport]]) - previous_visited
-            previous_visited = len([airport for airport in visited.keys() if visited[airport]])
+            previous_visited += components[not_visited[0]]
         return components
 
     # Función para obtener el árbol de expansión mínima del grafo===================================================================
@@ -68,21 +68,16 @@ class Graph:
         adjacency_list_tree = {}
         aux_adj = adjacency_list_tree.copy()
         for edge in edges:
-            if  edge[0] not in list(aux_adj.keys()):
-                aux_adj[edge[0]] = []
-            if  edge[1] not in list(aux_adj.keys()):
-                aux_adj[edge[1]] = []
-            aux_adj[str(edge[1])].append(str(edge[0]))
-            aux_adj[str(edge[0])].append(str(edge[1]))
-            if not (self.__has_cycles(aux_adj)):
-                if  edge[0] not in list(adjacency_list_tree.keys()):
-                    adjacency_list_tree[edge[0]] = []
-                if  edge[1] not in list(adjacency_list_tree.keys()):
-                    adjacency_list_tree[edge[1]] = []
-                adjacency_list_tree = aux_adj.copy()
-            else:
-                aux_adj[str(edge[1])].remove(str(edge[0]))
-                aux_adj[str(edge[0])].remove(str(edge[1]))
+            if  edge[0] not in list(adjacency_list_tree.keys()):
+                adjacency_list_tree[edge[0]] = []
+            if  edge[1] not in list(adjacency_list_tree.keys()):
+                adjacency_list_tree[edge[1]] = []
+            adjacency_list_tree[str(edge[1])].append(str(edge[0]))
+            adjacency_list_tree[str(edge[0])].append(str(edge[1]))
+            if self.__has_cycles(adjacency_list_tree):
+                adjacency_list_tree[str(edge[1])].remove(str(edge[0]))
+                adjacency_list_tree[str(edge[0])].remove(str(edge[1]))
+                
         
         minimum_expansion_tree = Graph(adjacency_list_tree, self.airports)
         return [{component: [minimum_expansion_tree.number_of_components()[component], round(minimum_expansion_tree.weight_of_component()[component],2)] for component in minimum_expansion_tree.number_of_components().keys()}, minimum_expansion_tree]
