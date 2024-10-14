@@ -1,6 +1,5 @@
 
 from .airport import *
-from decimal import Decimal
 
 class Graph:
     
