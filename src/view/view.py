@@ -108,7 +108,9 @@ class App:
         for component in arbol[0].keys() :
             GraphComponentsInfo(nVertices=arbol[0][component][0],minimumExpansionTreeWeight=arbol[0][component][1],componentNumber=component,master=master).pack(side=ctk.LEFT, padx=10)
     def fillAirportsFrame(self,master):
-        pass
+         for component in arbol[0].keys() :
+            GraphComponentsInfo(nVertices=arbol[0][component][0],minimumExpansionTreeWeight=arbol[0][component][1],componentNumber=component,master=master).pack(side=ctk.LEFT, padx=10)
+        
 
 
 
@@ -136,6 +138,7 @@ class maximunPathsAirports(ctk.CTkFrame):
         airportCountryLbl=ctk.CTkLabel(master=self,text=airportCountry,font=('Nunito',15),text_color='#000000').place(relx=0.5, y=140, anchor='center')
         airportLatitudeLbl=ctk.CTkLabel(master=self,text=airportLatitude,font=('Nunito',15),text_color='#000000').place(relx=0.5, y=180, anchor='center')
         airportlongitudeLbl=ctk.CTkLabel(master=self,text=airportlongitude,font=('Nunito',15),text_color='#000000').place(relx=0.5, y=220, anchor='center')
+        minDistance=ctk.CTkLabel(master=self,text=airportlongitude,font=('Nunito',15),text_color='#000000').place(relx=0.5, y=260, anchor='center')
 
 
 
