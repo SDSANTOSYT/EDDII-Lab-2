@@ -1,4 +1,5 @@
 import customtkinter as ctk
+from controller.dataset_manager import grafo, arbol
 ctk.set_appearance_mode("light")
 
 
@@ -26,14 +27,56 @@ class App:
 
         #Componentes del cuadro 2
         #Frames del cuadro 2
-        frame2Up=ctk.CTkFrame(master=frame2, width=560,height=375,fg_color='#ffffff')
+        frame2Up=ctk.CTkFrame(master=frame2, width=560,height=520,fg_color='#ffffff')
         frame2Up.place(x=10,y=10)
-        frame2down=ctk.CTkFrame(master=frame2, width=560,height=375,fg_color='#ffffff')
-        frame2down.place(x=10,y=395)
+        frame2down=ctk.CTkFrame(master=frame2, width=560,height=225,fg_color='#ffffff')
+        frame2down.place(x=10,y=540)
 
         #Componentes del cuadro superior 2
         AirportCode=ctk.CTkEntry(master=frame2Up,placeholder_text='Codigo del aeropuerto',width=150)
         AirportCode.place(relx=0.5,y=30,anchor='center')
+        searchBtn1=ctk.CTkButton(master=frame2Up,text='Buscar',command=lambda: self.search(airportname=airportInfNameoLbl,airporCity=airportInfCityLbl,airportCountry=airportInfCountryLbl, airportLatitude=airportInfLatitudeLbl, airpotLongitude=airportInfLongitudeLbl,airportcode=AirportCode))
+        searchBtn1.place(relx=0.8,anchor='center',y=30)
+
+        airportInfNameoLbl=ctk.CTkLabel(frame2Up,text='Nombre',font=('Nunito',15),text_color='#000000')
+        airportInfNameoLbl.place(relx=0.05,y=70)
+
+        airportInfCityLbl=ctk.CTkLabel(frame2Up,text='Ciudad',font=('Nunito',15),text_color='#000000')
+        airportInfCityLbl.place(relx=0.05,y=95)
+
+        airportInfCountryLbl=ctk.CTkLabel(frame2Up,text='Pais',font=('Nunito',15),text_color='#000000')
+        airportInfCountryLbl.place(relx=0.05,y=125)
+
+        airportInfLatitudeLbl=ctk.CTkLabel(frame2Up,text='Latitud',font=('Nunito',15),text_color='#000000')
+        airportInfLatitudeLbl.place(relx=0.65,y=70)
+
+        airportInfLongitudeLbl=ctk.CTkLabel(frame2Up,text='Longitud',font=('Nunito',15),text_color='#000000')
+        airportInfLongitudeLbl.place(relx=0.65,y=95)
+
+        infoAirports=ctk.CTkScrollableFrame(width=560, master=frame2Up,height=320,fg_color='#ffffff',orientation='horizontal',scrollbar_fg_color='#e3e3e3')
+        infoAirports.place(x=0,y=160)
+
+        #componentes del cuadro inferior 2
+        AirportCode2=ctk.CTkEntry(master=frame2down,placeholder_text='Codigo del aeropuerto',width=150)
+        AirportCode2.place(relx=0.5,y=30,anchor='center')
+        searchBtn2=ctk.CTkButton(master=frame2down,text='Buscar',command=lambda: self.search(airportname=airportInfNameoLbl2,airporCity=airportInfCityLbl2,airportCountry=airportInfCountryLbl2, airportLatitude=airportInfLatitudeLbl2, airpotLongitude=airportInfLongitudeLbl2,airportcode=AirportCode2))
+        searchBtn2.place(relx=0.8,anchor='center',y=30)
+
+        airportInfNameoLbl2=ctk.CTkLabel(frame2down,text='Nombre',font=('Nunito',15),text_color='#000000')
+        airportInfNameoLbl2.place(relx=0.05,y=70)
+
+        airportInfCityLbl2=ctk.CTkLabel(frame2down,text='Ciudad',font=('Nunito',15),text_color='#000000')
+        airportInfCityLbl2.place(relx=0.05,y=95)
+
+        airportInfCountryLbl2=ctk.CTkLabel(frame2down,text='Pais',font=('Nunito',15),text_color='#000000')
+        airportInfCountryLbl2.place(relx=0.05,y=125)
+
+        airportInfLatitudeLbl2=ctk.CTkLabel(frame2down,text='Latitud',font=('Nunito',15),text_color='#000000')
+        airportInfLatitudeLbl2.place(relx=0.65,y=70)
+
+        airportInfLongitudeLbl2=ctk.CTkLabel(frame2down,text='Longitud',font=('Nunito',15),text_color='#000000')
+        airportInfLongitudeLbl2.place(relx=0.65,y=95)
+
 
 
 
@@ -51,10 +94,21 @@ class App:
 
 
         root.mainloop()
+    def search(self, airportcode: ctk.CTkEntry, airportname: ctk.CTkLabel, airporCity:ctk.CTkLabel, airportCountry: ctk.CTkLabel, airportLatitude: ctk.CTkLabel, airpotLongitude:ctk.CTkLabel):
+        code=airportcode.get()
+        airportname.configure(text=f"Nombre: {grafo.airports[code].name}")
+        airporCity.configure(text=f"Ciudad: {grafo.airports[code].city}")
+        airportCountry.configure(text=f"País: {grafo.airports[code].country}")
+        airpotLongitude.configure(text=f"Longitud: {grafo.airports[code].longitude}")
+        airportLatitude.configure(text=f"Latitud: {grafo.airports[code].latitude}")
+
+        
 
     def fillIComponentFrame(self,master):
-        for i in range(1,8):
-            GraphComponentsInfo(nVertices=1,minimumExpansionTreeWeight=2,componentNumber=i,master=master).pack(side=ctk.LEFT, padx=10)
+        for component in arbol[0].keys() :
+            GraphComponentsInfo(nVertices=arbol[0][component][0],minimumExpansionTreeWeight=arbol[0][component][1],componentNumber=component,master=master).pack(side=ctk.LEFT, padx=10)
+    def fillAirportsFrame(self,master):
+        pass
 
 
 
@@ -67,21 +121,21 @@ class GraphComponentsInfo(ctk.CTkFrame):
         # Llamada al constructor de la clase padre
         super().__init__(master, width=275, height=300, fg_color='#ebf5fb',**kwargs)
 
-        componentNumberLbl=ctk.CTkLabel(master=self,text=componentNumber, font=('Nunito',30),text_color='#000000').place(relx=0.5, y=20, anchor='center')
-        nVerticesLbl=ctk.CTkLabel(master=self,text=nVertices, font=('Nunito',30),text_color='#000000').place(relx=0.5, y=60, anchor='center')
-        minimumExpansionTreeWeightLbl=ctk.CTkLabel(master=self, text=minimumExpansionTreeWeight, font=('Nunito',30),text_color='#000000').place(relx=0.5,y=100,anchor='center')
+        componentNumberLbl=ctk.CTkLabel(master=self,text=f"inicio: {componentNumber}", font=('Nunito',15),text_color='#000000').place(relx=0.5, y=20, anchor='center')
+        nVerticesLbl=ctk.CTkLabel(master=self,text=f"vertices: {nVertices}", font=('Nunito',15),text_color='#000000').place(relx=0.5, y=60, anchor='center')
+        minimumExpansionTreeWeightLbl=ctk.CTkLabel(master=self, text=f"peso: {minimumExpansionTreeWeight}Km", font=('Nunito',15),text_color='#000000').place(relx=0.5,y=100,anchor='center')
 
 
-class minimumPathsAirports(ctk.CTkFrame):
+class maximunPathsAirports(ctk.CTkFrame):
     def __init__(self, airportCode, airportName, airportCity, airportCountry, airportLatitude,airportlongitude, master=None, **kwargs):
         # Llamada al constructor de la clase padre
         super().__init__(master, width=275, height=300, fg_color='#ebf5fb',**kwargs)
-        airportCodeLbl=ctk.CTkLabel(master=self,text=airportCode,font=('Nunito',30),text_color='#000000').place(relx=0.5, y=20, anchor='center')
-        airportNameLbl=ctk.CTkLabel(master=self,text=airportName,font=('Nunito',30),text_color='#000000').place(relx=0.5, y=60, anchor='center')
-        airportCityLbl=ctk.CTkLabel(master=self,text=airportCity,font=('Nunito',30),text_color='#000000').place(relx=0.5, y=100, anchor='center')
-        airportCountryLbl=ctk.CTkLabel(master=self,text=airportCountry,font=('Nunito',30),text_color='#000000').place(relx=0.5, y=140, anchor='center')
-        airportLatitudeLbl=ctk.CTkLabel(master=self,text=airportLatitude,font=('Nunito',30),text_color='#000000').place(relx=0.5, y=180, anchor='center')
-        airportlongitudeLbl=ctk.CTkLabel(master=self,text=airportlongitude,font=('Nunito',30),text_color='#000000').place(relx=0.5, y=220, anchor='center')
+        airportCodeLbl=ctk.CTkLabel(master=self,text=airportCode,font=('Nunito',15),text_color='#000000').place(relx=0.5, y=20, anchor='center')
+        airportNameLbl=ctk.CTkLabel(master=self,text=airportName,font=('Nunito',15),text_color='#000000').place(relx=0.5, y=60, anchor='center')
+        airportCityLbl=ctk.CTkLabel(master=self,text=airportCity,font=('Nunito',15),text_color='#000000').place(relx=0.5, y=100, anchor='center')
+        airportCountryLbl=ctk.CTkLabel(master=self,text=airportCountry,font=('Nunito',15),text_color='#000000').place(relx=0.5, y=140, anchor='center')
+        airportLatitudeLbl=ctk.CTkLabel(master=self,text=airportLatitude,font=('Nunito',15),text_color='#000000').place(relx=0.5, y=180, anchor='center')
+        airportlongitudeLbl=ctk.CTkLabel(master=self,text=airportlongitude,font=('Nunito',15),text_color='#000000').place(relx=0.5, y=220, anchor='center')
 
 
 
