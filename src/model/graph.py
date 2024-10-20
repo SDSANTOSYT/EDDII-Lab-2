@@ -120,3 +120,33 @@ class Graph:
                 weight_total += self.weight_matrix[u][v]
                 visited, weight_total = self.__weight_of_component_visit(v,visited,weight_total)
         return visited, weight_total
+    
+    # Función para obtener camino minimo =============================================================================
+    def dijktra (self, v:str):
+        d = {airport: float("inf") for airport in self.L.keys()}
+        
+        pad = {airport: None for airport in self.L.keys()}
+        
+        visit = {airport: False for airport in self.L.keys()}
+        d[v]=0
+        while (not all(visit.values())):
+            v = min ({airport: d[airport] for airport in visit.keys() if not visit[airport] }, key= lambda airport: d[airport])
+            visit[v] = True
+            for airport in self.L[v]: 
+                if (d[v]+ self.weight_matrix[v][airport] < d[airport] and  not visit[airport]):
+                    d[airport] = d[v] + self.weight_matrix[v][airport]
+                    pad[airport] = v 
+        
+        return d, pad
+    
+    def tails (self, v: str):
+        d, pad = self.dijktra(v)
+        #print(d)
+        visit = {airport: False for airport in self.L.keys()}
+        tail = []
+        for i in range (10):
+            v1 = max ({airport: d[airport] for airport in visit.keys() if (not visit[airport]) and d[airport] != float("inf")}, key= lambda airport: d[airport])
+            tail.append((v1,d[v1]))
+            visit[v1] = True
+        return tail
+    
