@@ -25,6 +25,19 @@ class App:
         self.fillIComponentFrame(infoComponent)
 
         #Componentes del cuadro 2
+        #Frames del cuadro 2
+        frame2Up=ctk.CTkFrame(master=frame2, width=560,height=375,fg_color='#ffffff')
+        frame2Up.place(x=10,y=10)
+        frame2down=ctk.CTkFrame(master=frame2, width=560,height=375,fg_color='#ffffff')
+        frame2down.place(x=10,y=395)
+
+        #Componentes del cuadro superior 2
+        AirportCode=ctk.CTkEntry(master=frame2Up,placeholder_text='Codigo del aeropuerto',width=150)
+        AirportCode.place(relx=0.5,y=30,anchor='center')
+
+
+
+
 
  
 
