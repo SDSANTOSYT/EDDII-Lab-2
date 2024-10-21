@@ -1,6 +1,10 @@
 import customtkinter as ctk
+import folium.map
 from controller.dataset_manager import grafo, arbol
 ctk.set_appearance_mode("light")
+import folium 
+import webbrowser
+import os
 
 
 class App:
@@ -35,7 +39,7 @@ class App:
         #Componentes del cuadro superior 2
         AirportCode=ctk.CTkEntry(master=frame2Up,placeholder_text='Codigo del aeropuerto',width=150)
         AirportCode.place(relx=0.5,y=30,anchor='center')
-        searchBtn1=ctk.CTkButton(master=frame2Up,text='Buscar',command=lambda: self.search(airportname=airportInfNameoLbl,airporCity=airportInfCityLbl,airportCountry=airportInfCountryLbl, airportLatitude=airportInfLatitudeLbl, airpotLongitude=airportInfLongitudeLbl,airportcode=AirportCode))
+        searchBtn1=ctk.CTkButton(master=frame2Up,text='Buscar',command=lambda: self.search(airportname=airportInfNameoLbl,airporCity=airportInfCityLbl,airportCountry=airportInfCountryLbl, airportLatitude=airportInfLatitudeLbl, airpotLongitude=airportInfLongitudeLbl,airportcode=AirportCode,masterused=infoAirports))
         searchBtn1.place(relx=0.8,anchor='center',y=30)
 
         airportInfNameoLbl=ctk.CTkLabel(frame2Up,text='Nombre',font=('Nunito',15),text_color='#000000')
@@ -55,6 +59,7 @@ class App:
 
         infoAirports=ctk.CTkScrollableFrame(width=560, master=frame2Up,height=320,fg_color='#ffffff',orientation='horizontal',scrollbar_fg_color='#e3e3e3')
         infoAirports.place(x=0,y=160)
+
 
         #componentes del cuadro inferior 2
         AirportCode2=ctk.CTkEntry(master=frame2down,placeholder_text='Codigo del aeropuerto',width=150)
@@ -77,6 +82,8 @@ class App:
         airportInfLongitudeLbl2=ctk.CTkLabel(frame2down,text='Longitud',font=('Nunito',15),text_color='#000000')
         airportInfLongitudeLbl2.place(relx=0.65,y=95)
 
+        
+
 
 
 
@@ -94,22 +101,40 @@ class App:
 
 
         root.mainloop()
-    def search(self, airportcode: ctk.CTkEntry, airportname: ctk.CTkLabel, airporCity:ctk.CTkLabel, airportCountry: ctk.CTkLabel, airportLatitude: ctk.CTkLabel, airpotLongitude:ctk.CTkLabel):
+    def search(self, airportcode: ctk.CTkEntry, airportname: ctk.CTkLabel, airporCity:ctk.CTkLabel, airportCountry: ctk.CTkLabel, airportLatitude: ctk.CTkLabel, airpotLongitude:ctk.CTkLabel, masterused: ctk.CTkScrollableFrame=None):
         code=airportcode.get()
         airportname.configure(text=f"Nombre: {grafo.airports[code].name}")
         airporCity.configure(text=f"Ciudad: {grafo.airports[code].city}")
         airportCountry.configure(text=f"País: {grafo.airports[code].country}")
         airpotLongitude.configure(text=f"Longitud: {grafo.airports[code].longitude}")
         airportLatitude.configure(text=f"Latitud: {grafo.airports[code].latitude}")
+        if masterused != None:
+            self.fillAirportsFrame(master=masterused, airportCode=code)
+        self.createMap()
 
         
 
     def fillIComponentFrame(self,master):
         for component in arbol[0].keys() :
             GraphComponentsInfo(nVertices=arbol[0][component][0],minimumExpansionTreeWeight=arbol[0][component][1],componentNumber=component,master=master).pack(side=ctk.LEFT, padx=10)
-    def fillAirportsFrame(self,master):
-         for component in arbol[0].keys() :
-            GraphComponentsInfo(nVertices=arbol[0][component][0],minimumExpansionTreeWeight=arbol[0][component][1],componentNumber=component,master=master).pack(side=ctk.LEFT, padx=10)
+    def fillAirportsFrame(self,master,airportCode):
+        for widget in master.winfo_children():
+            widget.destroy()
+        listOfMaxMinAirports=grafo.tails(airportCode)
+        for MaxMinAirports in listOfMaxMinAirports :
+           maximunPathsAirports(airportCode=MaxMinAirports[0],airportName=grafo.airports[MaxMinAirports[0]].name,airportCity=grafo.airports[MaxMinAirports[0]].city,airportCountry=grafo.airports[MaxMinAirports[0]].country,airportLatitude=grafo.airports[MaxMinAirports[0]].latitude,airportlongitude=grafo.airports[MaxMinAirports[0]].longitude,minDistance=MaxMinAirports[1],master=master).pack(side=ctk.LEFT, padx=10)
+    def createMap(self):
+        m=folium.Map(location=[51.5074, -0.1278], zoom_start=13)
+        self.addPoints(m)
+        m.save('mapa.html')
+        webbrowser.open(f"file://{os.path.abspath('mapa.html')}")
+    
+    def addPoints(self, map: folium.map):
+        for airport in grafo.airports.values():
+            folium.Marker(location=[airport.latitude,airport.longitude],popup=str(f"Codigo: {airport.code} \n Nombre: {airport.name}\n Ciudad: {airport.city}\n Pais: {airport.country}\n Longitud: {airport.longitude}\n Latitud: {airport.latitude}"), icon=folium.Icon(icon='plane', prefix='fa', color='blue')).add_to(map)
+    def addMinimunPath(self, map, vertexBegin,vertexEnd):
+        
+
         
 
 
@@ -129,7 +154,7 @@ class GraphComponentsInfo(ctk.CTkFrame):
 
 
 class maximunPathsAirports(ctk.CTkFrame):
-    def __init__(self, airportCode, airportName, airportCity, airportCountry, airportLatitude,airportlongitude, master=None, **kwargs):
+    def __init__(self, airportCode, airportName, minDistance, airportCity, airportCountry, airportLatitude,airportlongitude, master=None, **kwargs):
         # Llamada al constructor de la clase padre
         super().__init__(master, width=275, height=300, fg_color='#ebf5fb',**kwargs)
         airportCodeLbl=ctk.CTkLabel(master=self,text=airportCode,font=('Nunito',15),text_color='#000000').place(relx=0.5, y=20, anchor='center')
@@ -138,7 +163,7 @@ class maximunPathsAirports(ctk.CTkFrame):
         airportCountryLbl=ctk.CTkLabel(master=self,text=airportCountry,font=('Nunito',15),text_color='#000000').place(relx=0.5, y=140, anchor='center')
         airportLatitudeLbl=ctk.CTkLabel(master=self,text=airportLatitude,font=('Nunito',15),text_color='#000000').place(relx=0.5, y=180, anchor='center')
         airportlongitudeLbl=ctk.CTkLabel(master=self,text=airportlongitude,font=('Nunito',15),text_color='#000000').place(relx=0.5, y=220, anchor='center')
-        minDistance=ctk.CTkLabel(master=self,text=airportlongitude,font=('Nunito',15),text_color='#000000').place(relx=0.5, y=260, anchor='center')
+        minDistanceLbl=ctk.CTkLabel(master=self,text=minDistance,font=('Nunito',15),text_color='#000000').place(relx=0.5, y=260, anchor='center')
 
 
 
@@ -152,4 +177,4 @@ cuadro=minimumPathsAirports(master=ruta,airportCode=1,airportCity='Barranquilla'
 cuadro.place(x=10,y=10)
 ruta.mainloop()"""
 
-debug=App()
+
