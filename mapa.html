@@ -25,7 +25,7 @@
             <meta name="viewport" content="width=device-width,
                 initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
             <style>
-                #map_527fb472bc72fde818fe9680f67623d1 {
+                #map_f9b83babd97483e9b629a20ee89604cb {
                     position: relative;
                     width: 100.0%;
                     height: 100.0%;
@@ -39,18 +39,18 @@
 <body>
     
     
-            <div class="folium-map" id="map_527fb472bc72fde818fe9680f67623d1" ></div>
+            <div class="folium-map" id="map_f9b83babd97483e9b629a20ee89604cb" ></div>
         
 </body>
 <script>
     
     
-            var map_527fb472bc72fde818fe9680f67623d1 = L.map(
-                "map_527fb472bc72fde818fe9680f67623d1",
+            var map_f9b83babd97483e9b629a20ee89604cb = L.map(
+                "map_f9b83babd97483e9b629a20ee89604cb",
                 {
-                    center: [51.5074, -0.1278],
+                    center: [0.0, 0.0],
                     crs: L.CRS.EPSG3857,
-                    zoom: 13,
+                    zoom: 1,
                     zoomControl: true,
                     preferCanvas: false,
                 }
@@ -60,105 +60,186 @@
 
         
     
-            var tile_layer_d8aa002d95809b1c06d155b148376cd9 = L.tileLayer(
+            var tile_layer_17cbf13adff02085ec5f2982098740d9 = L.tileLayer(
                 "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
-                {"attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors", "detectRetina": false, "maxNativeZoom": 19, "maxZoom": 19, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
+                {"attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors", "detectRetina": false, "maxNativeZoom": 19, "maxZoom": 19, "minZoom": 1, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
             );
         
     
-            tile_layer_d8aa002d95809b1c06d155b148376cd9.addTo(map_527fb472bc72fde818fe9680f67623d1);
+            tile_layer_17cbf13adff02085ec5f2982098740d9.addTo(map_f9b83babd97483e9b629a20ee89604cb);
         
     
-            var poly_line_18bbc13de13dfd11382501072a3cac9b = L.polyline(
-                [[10.4424, -75.513], [9.071359634, -79.38349915], [10.8896, -74.7808]],
+            var poly_line_a0f1a6b20a861a66460b273ac9e78321 = L.polyline(
+                [[-46.41239929, 168.3130035], [-43.48939896, 172.5319977], [-27.38419914, 153.1170044], [23.39240074, 113.2990036], [49.012798, 2.55], [29.94029999, 34.93579865]],
                 {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1.0, "smoothFactor": 1.0, "stroke": true, "weight": 3}
-            ).addTo(map_527fb472bc72fde818fe9680f67623d1);
+            ).addTo(map_f9b83babd97483e9b629a20ee89604cb);
         
     
-            poly_line_18bbc13de13dfd11382501072a3cac9b.bindTooltip(
+            poly_line_a0f1a6b20a861a66460b273ac9e78321.bindTooltip(
                 `<div>
-                     993.77Km
+                     22952.5Km
                  </div>`,
                 {"sticky": true}
             );
         
     
-            var marker_a14d31c0d55d8e188af4177fdf1cb544 = L.marker(
-                [10.4424, -75.513],
+            var marker_0718743a961f7fb8743bbe1dd76fa2b8 = L.marker(
+                [-46.41239929, 168.3130035],
                 {}
-            ).addTo(map_527fb472bc72fde818fe9680f67623d1);
+            ).addTo(map_f9b83babd97483e9b629a20ee89604cb);
         
     
-            var icon_47458fa056870fb8c646bceac191be74 = L.AwesomeMarkers.icon(
+            var icon_bf7fa4e1f4a0493833b1968b9d861896 = L.AwesomeMarkers.icon(
                 {"extraClasses": "fa-rotate-0", "icon": "plane", "iconColor": "white", "markerColor": "blue", "prefix": "fa"}
             );
-            marker_a14d31c0d55d8e188af4177fdf1cb544.setIcon(icon_47458fa056870fb8c646bceac191be74);
+            marker_0718743a961f7fb8743bbe1dd76fa2b8.setIcon(icon_bf7fa4e1f4a0493833b1968b9d861896);
         
     
-        var popup_efeecc3135e7da1d2aa18abba4ff0daa = L.popup({"maxWidth": "100%"});
+        var popup_d58d19f2925cfae8014312df06482a58 = L.popup({"maxWidth": 200});
 
         
             
-                var html_69a80a16af29618ef6f69317367d0bdb = $(`<div id="html_69a80a16af29618ef6f69317367d0bdb" style="width: 100.0%; height: 100.0%;">Codigo: CTG   Nombre: Rafael Nuñez International Airport  Ciudad: Cartagena  Pais: Colombia  Longitud: -75.513  Latitud: 10.4424</div>`)[0];
-                popup_efeecc3135e7da1d2aa18abba4ff0daa.setContent(html_69a80a16af29618ef6f69317367d0bdb);
+                var html_577142388ddb95d99a15bab82adf113e = $(`<div id="html_577142388ddb95d99a15bab82adf113e" style="width: 100.0%; height: 100.0%;">Codigo: IVC<br> Nombre: Invercargill Airport<br> Ciudad: Invercargill<br> Pais: New Zealand<br> Longitud: 168.3130035<br> Latitud: -46.41239929</div>`)[0];
+                popup_d58d19f2925cfae8014312df06482a58.setContent(html_577142388ddb95d99a15bab82adf113e);
             
         
 
-        marker_a14d31c0d55d8e188af4177fdf1cb544.bindPopup(popup_efeecc3135e7da1d2aa18abba4ff0daa)
+        marker_0718743a961f7fb8743bbe1dd76fa2b8.bindPopup(popup_d58d19f2925cfae8014312df06482a58)
         ;
 
         
     
     
-            var marker_b5c89b21d5f83bce7fcf38daf93989df = L.marker(
-                [9.071359634, -79.38349915],
+            var marker_867375ce6c3b4369bf98c8cd3210d7fc = L.marker(
+                [-43.48939896, 172.5319977],
                 {}
-            ).addTo(map_527fb472bc72fde818fe9680f67623d1);
+            ).addTo(map_f9b83babd97483e9b629a20ee89604cb);
         
     
-            var icon_389ef5a2e2e1f0423329004fba0059dd = L.AwesomeMarkers.icon(
+            var icon_6776beca9b41f1e70ad7906770ac3a89 = L.AwesomeMarkers.icon(
                 {"extraClasses": "fa-rotate-0", "icon": "plane", "iconColor": "white", "markerColor": "blue", "prefix": "fa"}
             );
-            marker_b5c89b21d5f83bce7fcf38daf93989df.setIcon(icon_389ef5a2e2e1f0423329004fba0059dd);
+            marker_867375ce6c3b4369bf98c8cd3210d7fc.setIcon(icon_6776beca9b41f1e70ad7906770ac3a89);
         
     
-        var popup_cfe9b9c15169f8be0d28953d597b673c = L.popup({"maxWidth": "100%"});
+        var popup_550c10f2fb5e71106eb65a5800dbcb6d = L.popup({"maxWidth": 200});
 
         
             
-                var html_0d1af631289d3b3b86acd6ffcbb2b2d3 = $(`<div id="html_0d1af631289d3b3b86acd6ffcbb2b2d3" style="width: 100.0%; height: 100.0%;">Codigo: PTY   Nombre: Tocumen International Airport  Ciudad: Panama City  Pais: Panama  Longitud: -79.38349915  Latitud: 9.071359634</div>`)[0];
-                popup_cfe9b9c15169f8be0d28953d597b673c.setContent(html_0d1af631289d3b3b86acd6ffcbb2b2d3);
+                var html_647a648176273a9180d0732990cc4648 = $(`<div id="html_647a648176273a9180d0732990cc4648" style="width: 100.0%; height: 100.0%;">Codigo: CHC<br> Nombre: Christchurch International Airport<br> Ciudad: Christchurch<br> Pais: New Zealand<br> Longitud: 172.5319977<br> Latitud: -43.48939896</div>`)[0];
+                popup_550c10f2fb5e71106eb65a5800dbcb6d.setContent(html_647a648176273a9180d0732990cc4648);
             
         
 
-        marker_b5c89b21d5f83bce7fcf38daf93989df.bindPopup(popup_cfe9b9c15169f8be0d28953d597b673c)
+        marker_867375ce6c3b4369bf98c8cd3210d7fc.bindPopup(popup_550c10f2fb5e71106eb65a5800dbcb6d)
         ;
 
         
     
     
-            var marker_6a3dd4f79275450882340c64df34e77a = L.marker(
-                [10.8896, -74.7808],
+            var marker_6ac0471a3e9fb0b6943aa6f1fe671679 = L.marker(
+                [-27.38419914, 153.1170044],
                 {}
-            ).addTo(map_527fb472bc72fde818fe9680f67623d1);
+            ).addTo(map_f9b83babd97483e9b629a20ee89604cb);
         
     
-            var icon_fa1630352dbbded2d2139e05617e551c = L.AwesomeMarkers.icon(
+            var icon_d828fde1f7dd2d98230fbce88261527e = L.AwesomeMarkers.icon(
                 {"extraClasses": "fa-rotate-0", "icon": "plane", "iconColor": "white", "markerColor": "blue", "prefix": "fa"}
             );
-            marker_6a3dd4f79275450882340c64df34e77a.setIcon(icon_fa1630352dbbded2d2139e05617e551c);
+            marker_6ac0471a3e9fb0b6943aa6f1fe671679.setIcon(icon_d828fde1f7dd2d98230fbce88261527e);
         
     
-        var popup_c87e20669b7f1c6a10c8ee72e00d2475 = L.popup({"maxWidth": "100%"});
+        var popup_5e902bb2f03ab2bc05b93d10d5131443 = L.popup({"maxWidth": 200});
 
         
             
-                var html_6a5ab84ca106bb1804da8ed29c7a40f2 = $(`<div id="html_6a5ab84ca106bb1804da8ed29c7a40f2" style="width: 100.0%; height: 100.0%;">Codigo: BAQ   Nombre: Ernesto Cortissoz International Airport  Ciudad: Barranquilla  Pais: Colombia  Longitud: -74.7808  Latitud: 10.8896</div>`)[0];
-                popup_c87e20669b7f1c6a10c8ee72e00d2475.setContent(html_6a5ab84ca106bb1804da8ed29c7a40f2);
+                var html_07f524afb16dad2ff420d4e186e79af8 = $(`<div id="html_07f524afb16dad2ff420d4e186e79af8" style="width: 100.0%; height: 100.0%;">Codigo: BNE<br> Nombre: Brisbane International Airport<br> Ciudad: Brisbane<br> Pais: Australia<br> Longitud: 153.1170044<br> Latitud: -27.38419914</div>`)[0];
+                popup_5e902bb2f03ab2bc05b93d10d5131443.setContent(html_07f524afb16dad2ff420d4e186e79af8);
             
         
 
-        marker_6a3dd4f79275450882340c64df34e77a.bindPopup(popup_c87e20669b7f1c6a10c8ee72e00d2475)
+        marker_6ac0471a3e9fb0b6943aa6f1fe671679.bindPopup(popup_5e902bb2f03ab2bc05b93d10d5131443)
+        ;
+
+        
+    
+    
+            var marker_eeeb60ad970eecf0d955061511e62e7f = L.marker(
+                [23.39240074, 113.2990036],
+                {}
+            ).addTo(map_f9b83babd97483e9b629a20ee89604cb);
+        
+    
+            var icon_36d724cabc86d43de5b04e0355a949fb = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "plane", "iconColor": "white", "markerColor": "blue", "prefix": "fa"}
+            );
+            marker_eeeb60ad970eecf0d955061511e62e7f.setIcon(icon_36d724cabc86d43de5b04e0355a949fb);
+        
+    
+        var popup_73d50a60c679612cf2fafbc9c5e9fe13 = L.popup({"maxWidth": 200});
+
+        
+            
+                var html_4cfb5b94ca1bad83164417427cf57678 = $(`<div id="html_4cfb5b94ca1bad83164417427cf57678" style="width: 100.0%; height: 100.0%;">Codigo: CAN<br> Nombre: Guangzhou Baiyun International Airport<br> Ciudad: Guangzhou<br> Pais: China<br> Longitud: 113.2990036<br> Latitud: 23.39240074</div>`)[0];
+                popup_73d50a60c679612cf2fafbc9c5e9fe13.setContent(html_4cfb5b94ca1bad83164417427cf57678);
+            
+        
+
+        marker_eeeb60ad970eecf0d955061511e62e7f.bindPopup(popup_73d50a60c679612cf2fafbc9c5e9fe13)
+        ;
+
+        
+    
+    
+            var marker_61e2c4c716f70ab5a838e4bd36756085 = L.marker(
+                [49.012798, 2.55],
+                {}
+            ).addTo(map_f9b83babd97483e9b629a20ee89604cb);
+        
+    
+            var icon_46d05010189ad2040f3578a88b294e8a = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "plane", "iconColor": "white", "markerColor": "blue", "prefix": "fa"}
+            );
+            marker_61e2c4c716f70ab5a838e4bd36756085.setIcon(icon_46d05010189ad2040f3578a88b294e8a);
+        
+    
+        var popup_d3e83578b404e3a7dc8daf14ae19636f = L.popup({"maxWidth": 200});
+
+        
+            
+                var html_7c72366964db54f8e3ad89394f8f3c0c = $(`<div id="html_7c72366964db54f8e3ad89394f8f3c0c" style="width: 100.0%; height: 100.0%;">Codigo: CDG<br> Nombre: Charles de Gaulle International Airport<br> Ciudad: Paris<br> Pais: France<br> Longitud: 2.55<br> Latitud: 49.012798</div>`)[0];
+                popup_d3e83578b404e3a7dc8daf14ae19636f.setContent(html_7c72366964db54f8e3ad89394f8f3c0c);
+            
+        
+
+        marker_61e2c4c716f70ab5a838e4bd36756085.bindPopup(popup_d3e83578b404e3a7dc8daf14ae19636f)
+        ;
+
+        
+    
+    
+            var marker_7c4148d55ed2d76ec02f1ee80d4f6537 = L.marker(
+                [29.94029999, 34.93579865],
+                {}
+            ).addTo(map_f9b83babd97483e9b629a20ee89604cb);
+        
+    
+            var icon_464baede95d270d46665301efd639a4a = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "plane", "iconColor": "white", "markerColor": "blue", "prefix": "fa"}
+            );
+            marker_7c4148d55ed2d76ec02f1ee80d4f6537.setIcon(icon_464baede95d270d46665301efd639a4a);
+        
+    
+        var popup_af11d69d4588589c617dd714f050be4b = L.popup({"maxWidth": 200});
+
+        
+            
+                var html_b6c6959700d3772caa4517195c4dc3f8 = $(`<div id="html_b6c6959700d3772caa4517195c4dc3f8" style="width: 100.0%; height: 100.0%;">Codigo: VDA<br> Nombre: Ovda International Airport<br> Ciudad: Ovda<br> Pais: Israel<br> Longitud: 34.93579865<br> Latitud: 29.94029999</div>`)[0];
+                popup_af11d69d4588589c617dd714f050be4b.setContent(html_b6c6959700d3772caa4517195c4dc3f8);
+            
+        
+
+        marker_7c4148d55ed2d76ec02f1ee80d4f6537.bindPopup(popup_af11d69d4588589c617dd714f050be4b)
         ;
 
         

@@ -121,7 +121,7 @@ class Graph:
                 visited, weight_total = self.__weight_of_component_visit(v,visited,weight_total)
         return visited, weight_total
     
-    # Función para obtener camino minimo =============================================================================
+    # Función para obtener camino minimo ===========================================================================================
     def dijktra (self, v:str):
         d = {airport: float("inf") for airport in self.L.keys()}
         
@@ -139,16 +139,21 @@ class Graph:
         
         return d, pad
     
+    # Función para obtener los 10 aeropuertos más lejanos ==========================================================================
     def tails (self, v: str):
         d, pad = self.dijktra(v)
         visit = {airport: False for airport in self.L.keys()}
         tail = []
         for i in range (10):
-            v1 = max ({airport: d[airport] for airport in visit.keys() if (not visit[airport]) and d[airport] != float("inf")}, key= lambda airport: d[airport])
-            tail.append((v1,d[v1]))
-            visit[v1] = True
+            try:
+                v1 = max ({airport: d[airport] for airport in visit.keys() if (not visit[airport]) and d[airport] != float("inf")}, key= lambda airport: d[airport])
+                tail.append((v1,d[v1]))
+                visit[v1] = True
+            except:
+                break
         return tail
 
+    # Función para obtener el camino entre dos aeropuertos =========================================================================
     def path(self, u: str, v:str ):
         d, pad = self.dijktra(u)
         path = [v]

@@ -1,5 +1,5 @@
 import customtkinter as ctk
-import folium.map
+import folium.map, folium.plugins.marker_cluster
 from controller.dataset_manager import grafo, arbol
 ctk.set_appearance_mode("light")
 import folium 
@@ -28,6 +28,8 @@ class App:
         infoComponent=ctk.CTkScrollableFrame(master=frame1,width=580,height=320,fg_color='#ffffff',orientation='horizontal',scrollbar_fg_color='#e3e3e3')
         infoComponent.place(x=0,y=120)
         self.fillIComponentFrame(infoComponent)
+        seeMapBtn=ctk.CTkButton(master=frame1,text='Ver Mapa',command=lambda: self.createMap())
+        seeMapBtn.place(relx=0.5,y=540,anchor='center')
 
         #Componentes del cuadro 2
         #Frames del cuadro 2
@@ -110,7 +112,6 @@ class App:
         airportLatitude.configure(text=f"Latitud: {grafo.airports[code].latitude}")
         if masterused != None:
             self.fillAirportsFrame(master=masterused, airportCode=code)
-        self.createMap()
 
     def search2(self, airportcode: ctk.CTkEntry, airportname: ctk.CTkLabel, airporCity:ctk.CTkLabel, airportCountry: ctk.CTkLabel, airportLatitude: ctk.CTkLabel, airpotLongitude:ctk.CTkLabel, airportcode2: ctk.CTkEntry,masterused: ctk.CTkScrollableFrame=None):
         code=airportcode.get()
@@ -133,7 +134,7 @@ class App:
         for MaxMinAirports in listOfMaxMinAirports :
            maximunPathsAirports(airportCode=MaxMinAirports[0],airportName=grafo.airports[MaxMinAirports[0]].name,airportCity=grafo.airports[MaxMinAirports[0]].city,airportCountry=grafo.airports[MaxMinAirports[0]].country,airportLatitude=grafo.airports[MaxMinAirports[0]].latitude,airportlongitude=grafo.airports[MaxMinAirports[0]].longitude,minDistance=MaxMinAirports[1],master=master).pack(side=ctk.LEFT, padx=10)
     def createMap(self, code1:ctk.CTkEntry = None, code2: ctk.CTkEntry = None,wich = True):
-        m=folium.Map(location=[51.5074, -0.1278], zoom_start=13)
+        m=folium.Map(min_zoom=1)
         if wich:
             self.addPoints(m)
         else:
@@ -142,15 +143,16 @@ class App:
         webbrowser.open(f"file://{os.path.abspath('mapa.html')}")
     
     def addPoints(self, map: folium.map):
+        marker_cluster = folium.plugins.MarkerCluster().add_to(map)
         for airport in grafo.airports.values():
-            folium.Marker(location=[airport.latitude,airport.longitude],popup=str(f"Codigo: {airport.code} \n Nombre: {airport.name}\n Ciudad: {airport.city}\n Pais: {airport.country}\n Longitud: {airport.longitude}\n Latitud: {airport.latitude}"), icon=folium.Icon(icon='plane', prefix='fa', color='blue')).add_to(map)
+            folium.Marker(location=[airport.latitude,airport.longitude],popup=folium.Popup(str(f"Codigo: {airport.code} <br> Nombre: {airport.name}<br> Ciudad: {airport.city}<br> Pais: {airport.country}<br> Longitud: {airport.longitude}<br> Latitud: {airport.latitude}"),False,200), icon=folium.Icon(icon='plane', prefix='fa', color='blue')).add_to(marker_cluster)
     def addMinimunPath(self, map, vertexBegin,vertexEnd):
         d, p = grafo.dijktra(vertexBegin)
         path = grafo.path(vertexBegin,vertexEnd)
         path_coordinates = [(grafo.airports[aiport].latitude,grafo.airports[aiport].longitude)for aiport in path]
         folium.PolyLine(path_coordinates,tooltip=f"{round(d[vertexEnd],2)}Km").add_to(map)
         for airport in path:
-            folium.Marker(location=[grafo.airports[airport].latitude,grafo.airports[airport].longitude],popup=str(f"Codigo: {grafo.airports[airport].code} \n Nombre: {grafo.airports[airport].name}\n Ciudad: {grafo.airports[airport].city}\n Pais: {grafo.airports[airport].country}\n Longitud: {grafo.airports[airport].longitude}\n Latitud: {grafo.airports[airport].latitude}"), icon=folium.Icon(icon='plane', prefix='fa', color='blue')).add_to(map)
+            folium.Marker(location=[grafo.airports[airport].latitude,grafo.airports[airport].longitude],popup=folium.Popup(str(f"Codigo: {grafo.airports[airport].code}<br> Nombre: {grafo.airports[airport].name}<br> Ciudad: {grafo.airports[airport].city}<br> Pais: {grafo.airports[airport].country}<br> Longitud: {grafo.airports[airport].longitude}<br> Latitud: {grafo.airports[airport].latitude}"),False,200), icon=folium.Icon(icon='plane', prefix='fa', color='blue')).add_to(map)
 
         
 
