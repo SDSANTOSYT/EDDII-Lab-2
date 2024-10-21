@@ -141,7 +141,6 @@ class Graph:
     
     def tails (self, v: str):
         d, pad = self.dijktra(v)
-        #print(d)
         visit = {airport: False for airport in self.L.keys()}
         tail = []
         for i in range (10):
@@ -149,4 +148,14 @@ class Graph:
             tail.append((v1,d[v1]))
             visit[v1] = True
         return tail
-    
+
+    def path(self, u: str, v:str ):
+        d, pad = self.dijktra(u)
+        path = [v]
+        v1 = v
+        while (v1 != u):
+            v1 = pad[v1]
+            path.append(v1)
+        path.reverse()
+        return path 
+        
